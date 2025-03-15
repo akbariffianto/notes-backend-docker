@@ -1,0 +1,33 @@
+##
+GET http://34.168.162.83:5000/notes 
+
+###
+POST http://localhost:5000/notes/add-notes
+Content-Type: application/json
+
+{
+    "judul": "Makan",
+    "deskripsi": "makan bareng keluarga",
+    "kategori": "mkan-makan",
+    "tanggal_dibuat": "",
+    "tanggal_diperbarui": ""
+}
+
+
+### 
+PUT http://localhost:5000/notes/update-notes/10
+
+{
+    "deskripsi" : "makan bareng keluarga besar",
+}
+
+###
+DELETE http://localhost:5000/notes/delete-notes/10
+
+###
+POST https://backend-13926268988.us-central1.run.app/add-user
+Content-Type: application/json
+
+{
+"name": "tes", "email": "tes@tes.com", "gender": "tes"
+}
