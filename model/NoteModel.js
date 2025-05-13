@@ -1,22 +1,38 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 
-const Note = db.define("note", {
+const Notes = db.define(
+  "note",
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     judul: {
-        type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    user_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
     },
     deskripsi: {
-        type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false,
     },
     kategori: {
-        type: Sequelize.STRING
-    }
-}, {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+  },
+  {
     freezeTableName: true,
-    timestamps: true, 
+    timestamps: true,
     underscored: true,
-    createdAt: "tanggal_dibuat", 
-    updatedAt: "tanggal_diperbarui"
-});
+    createdAt: "tanggal_dibuat",
+    updatedAt: "tanggal_diperbarui",
+  }
+);
 
-export default Note;
+export default Notes;

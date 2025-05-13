@@ -1,33 +1,54 @@
-##
-GET http://34.168.162.83:5000/notes 
-
-###
-POST http://localhost:5000/notes/add-notes
+### Register User
+POST http://localhost:5000/register
 Content-Type: application/json
 
 {
-    "judul": "Makan",
-    "deskripsi": "makan bareng keluarga",
-    "kategori": "mkan-makan",
-    "tanggal_dibuat": "",
-    "tanggal_diperbarui": ""
+    "name": "aja",
+    "password": "123456"
 }
 
-
-### 
-PUT http://localhost:5000/notes/update-notes/10
-
-{
-    "deskripsi" : "makan bareng keluarga besar",
-}
-
-###
-DELETE http://localhost:5000/notes/delete-notes/10
-
-###
-POST https://backend-13926268988.us-central1.run.app/add-user
+### Login User
+POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-"name": "tes", "email": "tes@tes.com", "gender": "tes"
+    "name": "j",
+    "password": "123456"
 }
+
+### Get Notes
+GET http://localhost:3000/notes
+Authorization: Bearer notesvelte12345
+
+### Create Note
+POST http://localhost:3000/notes/add-notes
+Content-Type: application/json
+Authorization: Bearer notesvelte12345
+
+{
+    "judul": "Test Note",
+    "deskripsi": "This is a test note",
+    "kategori": "Test"
+}
+
+### Get Single Note
+GET http://localhost:5000/notes/1
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### Update Note
+PUT http://localhost:5000/notes/update-notes/3
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+    "judul": "Updated Note",
+    "deskripsi": "This note has been updated",
+    "kategori": "Updated"
+}
+
+### Delete Note
+DELETE http://localhost:5000/notes/1
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### Logout
+DELETE http://localhost:5000/logout

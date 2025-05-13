@@ -1,19 +1,25 @@
 import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
 
-const db = new Sequelize("notes", "root", "", {
-    host: "34.59.43.177",
-    dialect: "mysql",
-    timezone: "+07:00", // Set timezone ke GMT+7
-    dialectOptions: {
-        dateStrings: true, // Pastikan tanggal dikembalikan dalam bentuk string
-        typeCast: function (field, next) { // Konversi otomatis untuk timestamps
-            if (field.type === "DATETIME") {
-                return field.string();
-            }
-            return next();
-        },
-    },
-    logging: false // Matikan logging jika tidak diperlukan
+dotenv.config();
+
+const {
+  DB_HOST: host,
+  DB_USERNAME: username,
+  DB_PASSWORD: password,
+  DB_NAME: database,
+} = process.env;
+
+const db = new Sequelize(database, username, password, {
+  host,
+  dialect: "mysql",
 });
+
+try {
+  await db.authenticate();
+  console.log('Database connected successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
 
 export default db;

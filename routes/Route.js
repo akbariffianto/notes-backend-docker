@@ -1,11 +1,34 @@
 import express from "express";
-import {getNote, createNote, updateNote, deleteNote} from "../controller/NoteController.js";
+import {
+    getNotes, 
+    createNotes, 
+    updateNotes, 
+    deleteNotes} from "../controller/NoteController.js";
 
+import {
+  Register,
+  Login,
+  refreshToken,
+  logout,
+} from "../controller/UserController.js";
+
+import { verifyToken } from "../middleware/verifyToken.js";
 const router = express.Router();
 
-router.get("/notes", getNote);
-router.post("/notes/add-notes", createNote);
-router.put("/notes/update-notes/:id", updateNote);
-router.delete("/notes/delete-notes/:id", deleteNote);
+// User Routes
+router.post("/register", Register);
+router.post("/login", Login);
+router.get("/token", refreshToken);
+router.delete("/logout", logout);
+
+// Note Routes
+router.get("/notes", verifyToken, getNotes);
+router.post("/notes/add-notes", verifyToken, createNotes);
+router.put("/notes/update-notes/:id", verifyToken, updateNotes);
+router.delete("/notes/delete-notes/:id", verifyToken, deleteNotes);
+
+router.all("*", (req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
 
 export default router;

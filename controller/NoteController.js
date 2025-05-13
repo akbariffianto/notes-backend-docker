@@ -1,71 +1,89 @@
-import Note from "../model/NoteModel.js";
+import Notes from "../model/NoteModel.js";
 
-// GET ALL NOTES
-async function getNote(req, res) {
-    try {
-        const response = await Note.findAll();
-        res.status(200).json(response);
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ msg: "Internal Server Error" });
-    }
-}
+const createNotes = async (req, res) => {
+  const { judul, deskripsi, kategori } = req.body; // Changed from title, content
+  const user_id = req.user.user_id; // Changed from id to user_id
 
-// CREATE NOTE
-async function createNote(req, res) {
-    try {
-        const { judul, deskripsi, kategori } = req.body;
-
-        // ✅ Validate required fields
-        if (!judul || !deskripsi || !kategori) {
-            return res.status(400).json({ msg: "Semua field harus diisi!" });
-        }
-
-        await Note.create({ judul, deskripsi, kategori });
-        res.status(201).json({ msg: "Note Created" });
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ msg: "Internal Server Error" });
-    }
-}
-
-// UPDATE NOTE
-const updateNote = async (req, res) => {
-    try {
-        const id = req.params.id;
-        const { judul, deskripsi, kategori } = req.body;
-
-        // ✅ Check if note exists
-        const note = await Note.findOne({ where: { id } });
-        if (!note) {
-            return res.status(404).json({ msg: "Note tidak ditemukan" });
-        }
-
-        await Note.update({ judul, deskripsi, kategori }, { where: { id } });
-        res.status(200).json({ msg: "Berhasil diupdate" });
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ msg: "Internal Server Error" });
-    }
+  try {
+    const notes = await Notes.create({
+      judul,
+      deskripsi,
+      kategori,
+      userId: user_id, // Changed to match foreign key
+    });
+    res.status(201).json({
+      message: "Notes berhasil dibuat",
+      userId: user_id,
+      data: notes,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
-// DELETE NOTE
-const deleteNote = async (req, res) => {
-    try {
-        const id = req.params.id;
+const getNotes = async (req, res) => {
+  const user_id = req.user.user_id; // Changed from id to user_id
 
-        // ✅ Check if note exists
-        const note = await Note.findOne({ where: { id } });
-        if (!note) {
-            return res.status(404).json({ msg: "Note tidak ditemukan" });
-        }
-
-        await Note.destroy({ where: { id } });
-        res.status(200).json({ msg: "Berhasil dihapus" });
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ msg: "Internal Server Error" });
-    }
+  try {
+    const notes = await Notes.findAll({ where: { userId: user_id } });
+    res.status(200).json({
+      message: "Notes berhasil diambil",
+      userId: user_id,
+      data: notes,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
-export { getNote, createNote, updateNote, deleteNote };
+const updateNotes = async (req, res) => {
+  const { id } = req.params;
+  const user_id = req.user.user_id; // Changed from id to user_id
+  const { judul, deskripsi, kategori } = req.body; // Changed field names
+
+  try {
+    const notes = await Notes.update(
+      {
+        judul,
+        deskripsi,
+        kategori,
+      },
+      {
+        where: {
+          id,
+          userId: user_id, // Added user check for security
+        },
+      }
+    );
+    res.status(200).json({
+      message: "Notes berhasil diupdate",
+      userId: user_id,
+      data: notes,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const deleteNotes = async (req, res) => {
+  const { id } = req.params;
+  const user_id = req.user.user_id; // Changed from id to user_id
+
+  try {
+    const notes = await Notes.destroy({
+      where: {
+        id,
+        userId: user_id, // Added user check for security
+      },
+    });
+    res.status(200).json({
+      message: "Notes berhasil dihapus",
+      userId: user_id,
+      data: notes,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { getNotes, createNotes, updateNotes, deleteNotes };
