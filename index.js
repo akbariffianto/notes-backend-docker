@@ -11,7 +11,7 @@ const port = process.env.PORT || 5000;
 const corsOptions = {
   origin: [
     "https://notes-frontend-akbar-dot-projek-tcc-1.uc.r.appspot.com",
-    "http://localhost:3000", // Tambahkan localhost untuk pengembangan lokal
+    "http://localhost:5173", // Tambahkan localhost untuk pengembangan lokal
   ], // Ganti dengan URL frontend yang terdeploy
   credentials: true, // Memungkinkan penggunaan cookies
   methods: ["GET", "POST", "PUT", "DELETE"],
