@@ -3,7 +3,7 @@ POST https://notes-backend-akbar-13926268988.us-central1.run.app/register
 Content-Type: application/json
 
 {
-    "name": "aj",
+    "name": "aji",
     "password": "123456"
 }
 
@@ -12,13 +12,13 @@ POST https://notes-backend-akbar-13926268988.us-central1.run.app/login
 Content-Type: application/json
 
 {
-    "name": "aj",
+    "name": "aji",
     "password": "123456"
 }
 
 ### Get Notes
-GET http://localhost:3000/notes
-Authorization: Bearer notesvelte12345
+GET https://notes-backend-akbar-13926268988.us-central1.run.app/notes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJuYW1lIjoiYWppIiwiaWF0IjoxNzQ3MTQ5NTIyLCJleHAiOjE3NDcxNDk1NTJ9.3Rvkvz5XptRzobJJgHf0eFtKOY3saFvH9d1aiTI1I-g
 
 ### Create Note
 POST http://localhost:3000/notes/add-notes
