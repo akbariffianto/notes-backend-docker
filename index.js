@@ -1,20 +1,16 @@
 import express from "express";
 import cors from "cors";
-import route from "./routes/route.js";
+import route from "./routes/Route.js";
 import "./model/index.js"; // <- PENTING: memicu sinkronisasi DB
 import cookieParser from "cookie-parser";
 
 const app = express();
 const port = process.env.PORT || 5000;
-import dotenv from 'dotenv';
-
-// Memuat file .env
-dotenv.config();
 
 // Konfigurasi CORS agar mengizinkan domain frontend terdeploy
 const corsOptions = {
  origin: [
-    // "https://notes-frontend-wijdan-dot-projek-tcc-1.uc.r.appspot.com",
+    "https://notes-frontend-wijdan-dot-projek-tcc-1.uc.r.appspot.com",
     "http://localhost:3000", // Tambahkan localhost untuk pengembangan lokal
   ], // Ganti dengan URL frontend yang terdeploy
   credentials: true, // Memungkinkan penggunaan cookies
