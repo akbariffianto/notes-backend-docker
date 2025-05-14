@@ -2,14 +2,13 @@ import Notes from "../model/NoteModel.js";
 
 const createNotes = async (req, res) => {
   const { judul, deskripsi, kategori } = req.body; 
-  const user_id = req.user.user_id;
-
+  const user_id = req.user.user_id; 
   try {
     const notes = await Notes.create({
       judul,
       deskripsi,
       kategori,
-      userId: user_id, 
+      userId: user_id,
     });
     res.status(201).json({
       message: "Notes berhasil dibuat",
@@ -22,7 +21,7 @@ const createNotes = async (req, res) => {
 };
 
 const getNotes = async (req, res) => {
-  const user_id = req.user.user_id; // Changed from id to user_id
+  const user_id = req.user.user_id;
 
   try {
     const notes = await Notes.findAll({ where: { userId: user_id } });
@@ -38,8 +37,8 @@ const getNotes = async (req, res) => {
 
 const updateNotes = async (req, res) => {
   const { id } = req.params;
-  const user_id = req.user.user_id; 
-  const { judul, deskripsi, kategori } = req.body; 
+  const user_id = req.user.user_id;
+  const { judul, deskripsi, kategori } = req.body;
 
   try {
     const notes = await Notes.update(
@@ -68,11 +67,12 @@ const updateNotes = async (req, res) => {
 const deleteNotes = async (req, res) => {
   const { id } = req.params;
   const user_id = req.user.user_id;
+
   try {
     const notes = await Notes.destroy({
       where: {
         id,
-        userId: user_id,
+        userId: user_id, 
       },
     });
     res.status(200).json({

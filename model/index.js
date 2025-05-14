@@ -3,8 +3,8 @@ import Users from "./UserModel.js";
 import Notes from "./NoteModel.js";
 
 // Relasi
-Users.hasMany(Notes, { foreignKey: "userId", onDelete: "CASCADE" });
-Notes.belongsTo(Users, { foreignKey: "userId" });
+Users.hasMany(Notes, { foreignKey: "user_id", onDelete: "CASCADE" });
+Notes.belongsTo(Users, { foreignKey: "user_id" });
 
 // Sinkronisasi semua tabel
 (async () => {

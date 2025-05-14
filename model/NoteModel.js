@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
-import Users from "./UserModel.js";
 
 const Notes = db.define("note", {
   judul: {
@@ -22,8 +21,5 @@ const Notes = db.define("note", {
 }, {
   freezeTableName: true
 });
-
-Notes.belongsTo(Users, { foreignKey: "user_id" });
-Users.hasMany(Notes, { foreignKey: "user_id" });
 
 export default Notes;
