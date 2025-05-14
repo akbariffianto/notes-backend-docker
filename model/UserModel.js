@@ -36,4 +36,4 @@ const Users = db.define(
   }
 );
 
-export default Users;y
+export default Users;
