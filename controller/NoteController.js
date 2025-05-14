@@ -1,8 +1,8 @@
 import Notes from "../model/NoteModel.js";
 
 const createNotes = async (req, res) => {
-  const { judul, deskripsi, kategori } = req.body; // Changed from title, content
-  const user_id = req.user.user_id; // Changed from id to user_id
+  const { judul, deskripsi, kategori } = req.body; 
+  const user_id = req.user.user_id;
 
   try {
     const notes = await Notes.create({
