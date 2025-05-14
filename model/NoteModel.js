@@ -35,4 +35,7 @@ const Notes = db.define(
   }
 );
 
+Notes.belongsTo(Users, { foreignKey: "user_id" });
+Users.hasMany(Notes, { foreignKey: "user_id" });
+
 export default Notes;

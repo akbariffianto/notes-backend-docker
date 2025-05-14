@@ -3,7 +3,7 @@ POST https://notes-backend-akbar-13926268988.us-central1.run.app/register
 Content-Type: application/json
 
 {
-    "name": "akbar2",
+    "name": "akbar3",
     "password": "123456"
 }
 
