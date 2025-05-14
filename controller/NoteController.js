@@ -8,11 +8,11 @@ const createNotes = async (req, res) => {
       judul,
       deskripsi,
       kategori,
-      userId: user_id,
+      user_id: user_id,
     });
     res.status(201).json({
       message: "Notes berhasil dibuat",
-      userId: user_id,
+      user_id: user_id,
       data: notes,
     });
   } catch (error) {
@@ -24,10 +24,10 @@ const getNotes = async (req, res) => {
   const user_id = req.user.user_id;
 
   try {
-    const notes = await Notes.findAll({ where: { userId: user_id } });
+    const notes = await Notes.findAll({ where: { user_id: user_id } });
     res.status(200).json({
       message: "Notes berhasil diambil",
-      userId: user_id,
+      user_id: user_id,
       data: notes,
     });
   } catch (error) {
@@ -50,13 +50,13 @@ const updateNotes = async (req, res) => {
       {
         where: {
           id,
-          userId: user_id,
+          user_id: user_id,
         },
       }
     );
     res.status(200).json({
       message: "Notes berhasil diupdate",
-      userId: user_id,
+      user_id: user_id,
       data: notes,
     });
   } catch (error) {
@@ -72,12 +72,12 @@ const deleteNotes = async (req, res) => {
     const notes = await Notes.destroy({
       where: {
         id,
-        userId: user_id, 
+        user_id: user_id, 
       },
     });
     res.status(200).json({
       message: "Notes berhasil dihapus",
-      userId: user_id,
+      user_id: user_id,
       data: notes,
     });
   } catch (error) {
