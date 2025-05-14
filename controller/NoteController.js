@@ -9,7 +9,7 @@ const createNotes = async (req, res) => {
       judul,
       deskripsi,
       kategori,
-      userId: user_id, // Changed to match foreign key
+      userId: user_id, 
     });
     res.status(201).json({
       message: "Notes berhasil dibuat",
@@ -38,8 +38,8 @@ const getNotes = async (req, res) => {
 
 const updateNotes = async (req, res) => {
   const { id } = req.params;
-  const user_id = req.user.user_id; // Changed from id to user_id
-  const { judul, deskripsi, kategori } = req.body; // Changed field names
+  const user_id = req.user.user_id; 
+  const { judul, deskripsi, kategori } = req.body; 
 
   try {
     const notes = await Notes.update(
@@ -51,7 +51,7 @@ const updateNotes = async (req, res) => {
       {
         where: {
           id,
-          userId: user_id, // Added user check for security
+          userId: user_id,
         },
       }
     );
@@ -67,13 +67,12 @@ const updateNotes = async (req, res) => {
 
 const deleteNotes = async (req, res) => {
   const { id } = req.params;
-  const user_id = req.user.user_id; // Changed from id to user_id
-
+  const user_id = req.user.user_id;
   try {
     const notes = await Notes.destroy({
       where: {
         id,
-        userId: user_id, // Added user check for security
+        userId: user_id,
       },
     });
     res.status(200).json({
