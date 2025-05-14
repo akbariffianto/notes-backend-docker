@@ -1,39 +1,27 @@
-import { Sequelize } from "sequelize";
+import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
+import Users from "./UserModel.js";
 
-const Notes = db.define(
-  "note",
-  {
-    id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    judul: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    user_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-    deskripsi: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    kategori: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
+const Notes = db.define("note", {
+  judul: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
-  {
-    freezeTableName: true,
-    timestamps: true,
-    underscored: true,
-    createdAt: "tanggal_dibuat",
-    updatedAt: "tanggal_diperbarui",
+  deskripsi: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  kategori: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
-);
+}, {
+  freezeTableName: true
+});
 
 Notes.belongsTo(Users, { foreignKey: "user_id" });
 Users.hasMany(Notes, { foreignKey: "user_id" });
